@@ -6,6 +6,7 @@ module Machinist
   # The Lathe implements all the methods that are available to the blueprint,
   # including method_missing to let the blueprint define attributes.
   class Lathe
+    NUMBER = 1.class
 
     def initialize(klass, serial_number, attributes = {})
       @klass               = klass
@@ -38,7 +39,7 @@ module Machinist
   protected
 
     def make_attribute(attribute, args, &block) #:nodoc:
-      count = args.shift if args.first.is_a?(Fixnum)
+      count = args.shift if args.first.is_a?(NUMBER)
       if count
         Array.new(count) { make_one_value(attribute, args, &block) }
       else

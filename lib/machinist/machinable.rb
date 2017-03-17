@@ -2,6 +2,8 @@ module Machinist
 
   # Extend classes with this module to define the blueprint and make methods.
   module Machinable
+    NUMBER = 1.class
+    
     # Define a blueprint with the given name for this class.
     #
     # e.g.
@@ -75,7 +77,7 @@ module Machinist
     # construct multiple objects.
     def decode_args_to_make(*args) #:nodoc:
       shift_arg = lambda {|klass| args.shift if args.first.is_a?(klass) }
-      count      = shift_arg[Fixnum]
+      count      = shift_arg[NUMBER]
       name       = shift_arg[Symbol] || :master
       attributes = shift_arg[Hash]   || {}
       raise ArgumentError.new("Couldn't understand arguments") unless args.empty?
